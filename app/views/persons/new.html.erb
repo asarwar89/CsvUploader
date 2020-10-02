@@ -1,0 +1,15 @@
+<h1>Data uploader</h1>
+<p>Select a CSV file to upload data</p>
+<%= form_for @person, url: persons_path do |file| %>
+    <div class="form-group">
+        <label class="file-upload">
+            <%= file.file_field :file, class: 'form-control-file', required: true %>
+            <span>Choose file</span>
+        </label>
+    </div>
+    <p>
+        <%= file.submit("Upload file", :class => "btn btn-primary") %>
+    </p>
+<% end %>
+
+<%= link_to 'Back to home', persons_path, class: "btn btn-secondary my-3" %>
