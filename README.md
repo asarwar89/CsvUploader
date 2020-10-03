@@ -1,31 +1,37 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby version: 2.7.1
 
-Things you may want to cover:
+## Getting started
 
-* Ruby version
+To get started with the app, first clone the repo and `cd` into the directory:
 
-* System dependencies
+```
+$ git clone https://github.com/asarwar89/CsvUploader.git
+$ cd CsvUploader
+```
 
-* Configuration
+Then install the needed gems (while skipping any gems needed only in production):
 
-* Database creation
+```
+$ bundle install
+```
 
-* Database initialization
+Next, migrate the database:
 
-* How to run the test suite
+```
+$ rails db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Finally, run the test suite to verify that everything is working correctly:
 
-* Deployment instructions
+```
+$ rails test
+```
 
-* ...
+If the test suite passes, you'll be ready to run the app in a local server:
 
+```
+$ rails server
+```
 
-* Person.destroy_all
-* bundle install --force
-* bundle install --redownload
-
-* <%= link_to 'Destroy',  persons_path, data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-primary"%>
