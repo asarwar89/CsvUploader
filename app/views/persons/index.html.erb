@@ -12,42 +12,42 @@
   <tr>
     <th scope="col">
       <%= link_to 'First Name', 
-          persons_path(request.params.except(:action, :controller, :commit).merge(:ob => "fn", :oad => @orderingObj[:fn])) 
+          persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "fn", :oad => @orderingObj[:fn])) 
       %>
     </th>
     <th scope="col">
       <%= link_to 'Last Name', 
-          persons_path(request.params.except(:action, :controller, :commit).merge(:ob => "ln", :oad => @orderingObj[:ln])) 
+          persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "ln", :oad => @orderingObj[:ln])) 
       %>
     </th>
     <th scope="col">
       <%= link_to 'Species', 
-          persons_path(request.params.except(:action, :controller, :commit).merge(:ob => "sp", :oad => @orderingObj[:sp])) 
+          persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "sp", :oad => @orderingObj[:sp])) 
       %>
     </th>
     <th scope="col">
       <%= link_to 'Gender', 
-          persons_path(request.params.except(:action, :controller, :commit).merge(:ob => "gd", :oad => @orderingObj[:gd])) 
+          persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "gd", :oad => @orderingObj[:gd])) 
       %>
     </th>
     <th scope="col">
       <%= link_to 'Weapon', 
-          persons_path(request.params.except(:action, :controller, :commit).merge(:ob => "wp", :oad => @orderingObj[:wp])) 
+          persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "wp", :oad => @orderingObj[:wp])) 
       %>
     </th>
     <th scope="col">
       <%= link_to 'Vehicle', 
-          persons_path(request.params.except(:action, :controller, :commit).merge(:ob => "vh", :oad => @orderingObj[:vh])) 
+          persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "vh", :oad => @orderingObj[:vh])) 
       %>
     </th>
     <th scope="col">
       <%= link_to 'Affiliations', 
-          persons_path(request.params.except(:action, :controller, :commit).merge(:ob => "afl", :oad => @orderingObj[:afl])) 
+          persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "afl", :oad => @orderingObj[:afl])) 
       %>
     </th>
     <th scope="col">
       <%= link_to 'Locations', 
-          persons_path(request.params.except(:action, :controller, :commit).merge(:ob => "loc", :oad => @orderingObj[:loc])) 
+          persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "loc", :oad => @orderingObj[:loc])) 
       %>
     </th>
   </tr>
