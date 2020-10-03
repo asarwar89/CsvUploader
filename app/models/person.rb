@@ -28,7 +28,8 @@ class Person < ApplicationRecord
 
         @persons = Person
                     .left_outer_joins(:locations, :affiliations)
-                    .select('people.*, group_concat(locations.name) as locations, group_concat(affiliations.title) as affiliations')
+                    # .select('people.*, group_concat(locations.name) as locations, group_concat(affiliations.title) as affiliations')
+                    .select('people.*, array_agg(locations.name) as locations, array_agg(affiliations.title) as affiliations')
                     .where(@searchQuery, search: searchParam)
                     .group('people.id')
                     .order(orderby)
