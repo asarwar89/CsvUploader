@@ -161,6 +161,17 @@ label.file-upload {
     .table th {
         min-width: 105px;
     }
+
+    .table th:first-child,
+    .table th:nth-child(2) {
+        min-width: 118px;
+    }
+
+    .table th:nth-child(7),
+    .table th:nth-child(8) {
+        min-width: 110px;
+    }
+
 }
 
 td p {
