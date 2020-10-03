@@ -78,6 +78,10 @@ main {
 input#searchfor {
     height: 38px;
     padding: 5px 10px;
+
+    @media (min-width: 768px) {
+        height: 60px;
+    }
 }
 
 .searchForm {
@@ -96,16 +100,23 @@ input#searchfor {
     @media (min-width: 768px) {
         display: flex;
         margin-top: 40px;
+        margin-bottom: 20px;
 
         input[type="text"] {
             width: calc(100% - 96px);
-            max-width: 300px;
+            max-width: 400px;
             margin-bottom: 0px;
         }
     
         .btn {
             margin-left: 20px;
             width: auto;
+            line-height: 46px;
+        }
+
+        input[type="text"],
+        .btn {
+            height: 60px;
         }
     }
 }
@@ -146,8 +157,10 @@ label.file-upload {
     vertical-align: middle;
 }
 
-.table th {
-    min-width: 105px;
+@media (min-width: 992px) {
+    .table th {
+        min-width: 105px;
+    }
 }
 
 td p {
@@ -191,4 +204,13 @@ em.current {
     .btn-warning {
         line-height: 18px;
     }
+
+    p {
+        text-align: center;
+    }
+}
+
+p.sample-file {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

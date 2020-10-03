@@ -1,6 +1,7 @@
 <h1>Persons</h1>
 
 <%= link_to 'Upload data file', new_person_path, class: "btn btn-primary" %>
+<p class="sample-file"><a href="https://docs.google.com/spreadsheets/d/10c7r-kjdWM4L8kWK0nfE6JgHskzqp7DTF8MkUIo7-_o/edit?usp=sharing" target="_blank">Click here</a> for sample data file.</p>
 
 <div class="destroy-section">
   <h4>It is a test site.</h4>
@@ -17,42 +18,42 @@
   <table class="table">
     <tr>
       <th scope="col">
-        <%= link_to 'First Name', 
+        <%= link_to raw("First Name <i class='fas fa-sort'></i>"), 
             persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "fn", :oad => @orderingObj[:fn])) 
         %>
       </th>
       <th scope="col">
-        <%= link_to 'Last Name', 
+        <%= link_to raw("Last Name <i class='fas fa-sort'></i>"), 
             persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "ln", :oad => @orderingObj[:ln])) 
         %>
       </th>
       <th scope="col">
-        <%= link_to 'Species', 
+        <%= link_to raw("Species <i class='fas fa-sort'></i>"), 
             persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "sp", :oad => @orderingObj[:sp])) 
         %>
       </th>
       <th scope="col">
-        <%= link_to 'Gender', 
+        <%= link_to raw("Gender <i class='fas fa-sort'></i>"), 
             persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "gd", :oad => @orderingObj[:gd])) 
         %>
       </th>
       <th scope="col">
-        <%= link_to 'Weapon', 
+        <%= link_to raw("Weapon <i class='fas fa-sort'></i>"), 
             persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "wp", :oad => @orderingObj[:wp])) 
         %>
       </th>
       <th scope="col">
-        <%= link_to 'Vehicle', 
+        <%= link_to raw("Vehicle <i class='fas fa-sort'></i>"), 
             persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "vh", :oad => @orderingObj[:vh])) 
         %>
       </th>
       <th scope="col">
-        <%= link_to 'Affiliations', 
+        <%= link_to raw("Affiliations <i class='fas fa-sort'></i>"), 
             persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "afl", :oad => @orderingObj[:afl])) 
         %>
       </th>
       <th scope="col">
-        <%= link_to 'Locations', 
+        <%= link_to raw("Locations <i class='fas fa-sort'></i>"), 
             persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "loc", :oad => @orderingObj[:loc])) 
         %>
       </th>
