@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   resources :countries
   resources :persons
 
+  delete 'persons', to: 'persons#destroyAll'
+
   root 'persons#index'
 end

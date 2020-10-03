@@ -102,4 +102,11 @@ class PersonsController < ApplicationController
 
         columnList[orderby.to_sym]
     end
+
+    def destroyAll
+        Location.destroy_all
+        Affiliation.destroy_all
+        Person.destroy_all
+        redirect_to persons_path
+    end
 end
