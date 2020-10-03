@@ -33,11 +33,12 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap', '~> 4.5.2'
 gem 'mini_racer'
 
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3', '~> 1.4'
+
 gem "mysql2"
 
 group :development, :test do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3', '~> 1.4'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
