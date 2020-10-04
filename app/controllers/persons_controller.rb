@@ -1,10 +1,14 @@
 require 'csv'
 
 class PersonsController < ApplicationController
+
     def index
 
+        # Checks if ordering requested
         if !(params[:ob].blank?)
 
+            # checks order is ascending or descending
+            # oad blank means ascending else descending
             if (params[:oad].blank?)
                 @orderby = getColumnName(params[:ob])
                 @orderingObj = processOrdering(params[:ob])
@@ -13,6 +17,8 @@ class PersonsController < ApplicationController
                 @orderingObj = processOrdering(params[:oad], 'desc')
             end
         else
+            # if no ordering required on page load
+            # ordering object requried for toggling order history
             @orderingObj = processOrdering()
         end
 
@@ -24,6 +30,7 @@ class PersonsController < ApplicationController
 
         @page = params[:page]
         
+        # requesting person class for SQL
         @persons = Person.getPeople(@searchParam, @orderby, @page)
 
     end
@@ -42,10 +49,14 @@ class PersonsController < ApplicationController
 
         CSV.foreach(file.path, headers: true) do |row|
 
+            # row[4] = Affiliation, row[0] = Name. Both required
+            # Process data only if both field exists
             if (!(row[4].blank?) & !(row[0].blank?))
 
+                # Capitalise each part of name
                 nameArr = row[0].split(" ").map(&:capitalize);
 
+                # Create person object using Person model
                 @person = Person.new({
                     firstname: nameArr.slice!(0),
                     lastname: nameArr.join(' '),
@@ -55,20 +66,25 @@ class PersonsController < ApplicationController
                     vehicle: row[6]
                 })
 
+                # If person is saved only then process Affiliation and Location
                 if @person.save
 
+                    # row[1] = Location
                     if !(row[1].blank?)
 
                         locationArr = row[1].split(",").map { |item| item.strip.split(" ").map(&:capitalize).join(" ") }
 
+                        # Save each location in Location table linking person id
                         locationArr.each do |location|
                             @location = Location.new({ name: location, person_id: @person.id})
                             @location.save
                         end
                     end
                     
+                    # Convert affiliations to Capitalized affiliations array
                     affiliationsArr = row[4].split(",").map { |item| item.strip.capitalize() }
 
+                    # Save each affiliation in Affiliation table linking person id
                     affiliationsArr.each do |affiliation|
                         @affiliation = Affiliation.new({ title: affiliation, person_id: @person.id})
                         @affiliation.save
@@ -78,6 +94,7 @@ class PersonsController < ApplicationController
         end
     end
 
+    # Process ordering object to toggle ordering
     def processOrdering(orderby = "", order = "")
         orderHash = { fn: '', ln: '', sp: '', gd: '', wp: '', vh: '', afl: '', loc: '' }
 
@@ -88,6 +105,7 @@ class PersonsController < ApplicationController
         orderHash
     end
 
+    # Get order by column name for SQL
     def getColumnName(orderby) 
         columnList = {
             :fn => 'people.firstname',
@@ -103,6 +121,8 @@ class PersonsController < ApplicationController
         columnList[orderby.to_sym]
     end
 
+    # As a test site added this function to empty data tables
+    # So that a fresh start is possible for testing
     def destroyAll
         Location.destroy_all
         Affiliation.destroy_all

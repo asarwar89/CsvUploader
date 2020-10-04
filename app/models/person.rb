@@ -12,6 +12,7 @@ class Person < ApplicationRecord
 
         puts "Order by #{orderby}"
 
+        # Where condition in SQL for search option
         if !(searchParam.blank?)
 
             @searchQuery = "people.firstname LIKE :search"\
@@ -26,6 +27,7 @@ class Person < ApplicationRecord
             @searchQuery = ""
         end
 
+        # Get data from table matching all conditions
         @persons = Person
                     .left_outer_joins(:locations, :affiliations)
                     .select('people.*, group_concat(locations.name) as locations, group_concat(affiliations.title) as affiliations')
