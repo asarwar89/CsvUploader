@@ -8,9 +8,7 @@ class Person < ApplicationRecord
     validates :species, presence: true
     validates :gender, presence: true
 
-    def self.getPeople(searchParam = "", orderby = "", page = "")
-
-        puts "Order by #{orderby}"
+    def self.getPeople(searchParam = "", orderby = "", page = 1)
 
         # Where condition in SQL for search option
         if !(searchParam.blank?)

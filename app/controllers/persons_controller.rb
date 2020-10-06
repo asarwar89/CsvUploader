@@ -10,16 +10,16 @@ class PersonsController < ApplicationController
             # checks order is ascending or descending
             # oad blank means ascending else descending
             if (params[:oad].blank?)
-                @orderby = getColumnName(params[:ob])
-                @orderingObj = processOrdering(params[:ob])
+                @orderby = self.class.getColumnName(params[:ob])
+                @orderingObj = self.class.processOrdering(params[:ob])
             else
-                @orderby = "#{getColumnName(params[:ob])} desc"
-                @orderingObj = processOrdering(params[:oad], 'desc')
+                @orderby = "#{self.class.getColumnName(params[:ob])} desc"
+                @orderingObj = self.class.processOrdering(params[:oad], 'desc')
             end
         else
             # if no ordering required on page load
             # ordering object requried for toggling order history
-            @orderingObj = processOrdering()
+            @orderingObj = self.class.processOrdering()
         end
 
         if !(params[:searchfor].blank?)
@@ -95,7 +95,7 @@ class PersonsController < ApplicationController
     end
 
     # Process ordering object to toggle ordering
-    def processOrdering(orderby = "", order = "")
+    def self.processOrdering(orderby = "", order = "")
         orderHash = { fn: '', ln: '', sp: '', gd: '', wp: '', vh: '', afl: '', loc: '' }
 
         if (order.blank?)
@@ -106,7 +106,7 @@ class PersonsController < ApplicationController
     end
 
     # Get order by column name for SQL
-    def getColumnName(orderby) 
+    def self.getColumnName(orderby) 
         columnList = {
             :fn => 'people.firstname',
             :ln => 'people.lastname',
