@@ -97,7 +97,8 @@ class Persons extends React.Component {
 
     updateSearch = (event) => {
         this.setState({
-          search: event.target.value
+          search: event.target.value,
+          currentPage: 1
         });
     }
 
