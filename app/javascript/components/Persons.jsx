@@ -186,10 +186,10 @@ class Persons extends React.Component {
                                 <th onClick={ () => this.handleOrdering("vehicle") }>
                                     Vehicle <i className='fas fa-sort'></i>
                                 </th>
-                                <th onClick={ () => this.handleOrdering("affiliation") }>
+                                <th onClick={ () => this.handleOrdering("affiliations.title") }>
                                     Affiliations <i className='fas fa-sort'></i>
                                 </th>
-                                <th onClick={ () => this.handleOrdering("location") }>
+                                <th onClick={ () => this.handleOrdering("locations.name") }>
                                     Locations <i className='fas fa-sort'></i>
                                 </th>
                             </tr>
