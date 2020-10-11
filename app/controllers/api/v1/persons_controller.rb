@@ -7,9 +7,9 @@ class Api::V1::PersonsController < ApplicationController
             # checks order is ascending or descending
             # order blank means ascending else descending
             if (params[:order].blank?)
-                @orderby = params[:orderby]
+                @orderby = self.class.getColumnName(params[:orderby])
             else
-                @orderby = "#{params[:orderby]} desc"
+                @orderby = "#{self.class.getColumnName(params[:orderby])} desc"
             end
         
         end
@@ -90,6 +90,22 @@ class Api::V1::PersonsController < ApplicationController
                 end
             end
         end
+    end
+
+    # Get order by column name for SQL
+    def self.getColumnName(orderby) 
+        columnList = {
+            :firstname => 'people.firstname',
+            :lastname => 'people.lastname',
+            :species => 'people.species',
+            :gender => 'people.gender',
+            :weapon => 'people.weapon',
+            :vehicle => 'people.vehicle',
+            :affiliation => 'affiliations.title',
+            :location => 'locations.name'
+        }
+
+        columnList[orderby.to_sym]
     end
 
     # As a test site added this function to empty data tables
