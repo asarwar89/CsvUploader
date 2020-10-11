@@ -7,20 +7,45 @@ body {
 h1 {
     font-size: 34px;
     font-weight: 700;
-    margin: 20px 0;
+    margin: 20px 0 !important;
     color: #007ca0;
 }
 
-header {
+.header {
     background-color: #1e1f20;
+    position: relative;
 
     .logo {
         width: 200px;
         padding: 20px 20px 20px 5%;
     }
+
+    nav {
+    
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: calc(50% - 20px);
+        left: calc(50% - 190px);
+
+        @media (min-width: 768px) {
+            position: absolute;
+        }
+    
+        .nav-link {
+            display: block;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+
+            &:hover {
+                border-bottom: 2px solid #00b9f0;
+            }
+        }
+    }
 }
 
-main {
+.main {
     padding-left: 5%;
     padding-right: 5%;
     margin: 0 auto;
@@ -48,29 +73,36 @@ main {
         justify-content: center;
     }
 
-    a, 
-    span, 
-    em {
-        display: inline-block;
-        padding: 10px;
-        margin: 10px;
-        border: 1px solid grey;
-        border-radius: 5px;
-        min-width: 50px;
-        text-align: center;
+    li {
+        a {
+            color: #007bff !important;
+            display: inline-block;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid grey;
+            border-radius: 5px;
+            min-width: 50px;
+            text-align: center;
 
-        @media (min-width: 768px) {
-            display: block;
+            @media (min-width: 768px) {
+                display: block;
+            }
         }
-    }
+    
+        &.disabled a {
+            color: grey !important;
+            cursor: default;
+        }
+        
+        &.active a {
+            cursor: default;
+            background-color: #0c3f6e;
+            color: #fff !important;
+        }
 
-    .previous_page,
-    .next_page {
-        display: none;
-        min-width: 110px;
-
-        @media (min-width: 768px) {
-            display: block;
+        &.previous,
+        &.next {
+            min-width: 105px;
         }
     }
 }
@@ -84,22 +116,28 @@ input#searchfor {
     }
 }
 
-.searchForm {
+.searchBlock {
+    
     align-items: center;
     justify-content: center;
 
     input[type="text"] {
         margin-bottom: 20px;
+        padding: 5px 10px;
     }
 
     input[type="text"],
     .btn {
         width: 100%;
+
+        @media (min-width: 768px) {
+            font-size: 18px;
+        }
     }
 
     @media (min-width: 768px) {
         display: flex;
-        margin-top: 40px;
+        margin-top: 20px;
         margin-bottom: 20px;
 
         input[type="text"] {
@@ -140,7 +178,7 @@ label.file-upload {
         display: block;
         position: absolute;
         top: 2px;
-        left: 18px;
+        left: 20px;
         font-weight: bold;
         font-size: 16px;
         background: #0c3f6e;
@@ -152,30 +190,32 @@ label.file-upload {
     }
 }
 
-.table th, 
-.table td {
-    vertical-align: middle;
-}
-
-@media (min-width: 992px) {
-    .table th {
+.table {
+    th {
+        cursor: pointer;
+        color: #007bff;
+    }
+    
+    th, 
+    td {
+        vertical-align: middle !important;
+    }
+    
+    th {
         min-width: 105px;
     }
-
-    .table th:first-child,
-    .table th:nth-child(2) {
-        min-width: 118px;
+    
+    th:first-child,
+    th:nth-child(2),
+    th:nth-child(7),
+    th:nth-child(8) {
+        min-width: 125px;
     }
-
-    .table th:nth-child(7),
-    .table th:nth-child(8) {
-        min-width: 110px;
-    }
-
 }
 
 td p {
     margin-bottom: 0;
+    margin-right: 10px;
     padding: 3px 5px;
     border: 1px solid #0c3f6e;
     border-radius: 5px;
@@ -184,6 +224,10 @@ td p {
 
     &:first-child {
         margin-top: 0;
+    }
+    
+    &:last-child {
+        margin-right: 0;
     }
 }
 
@@ -224,4 +268,10 @@ em.current {
 p.sample-file {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.noperson {
+    text-align: center;
+    padding: 40px 0;
+    color: #f69446;
 }

@@ -1,0 +1,84 @@
+<h1>Persons</h1>
+
+<%= link_to 'Upload data file', new_person_path, class: "btn btn-primary" %>
+<p class="sample-file"><a href="https://docs.google.com/spreadsheets/d/10c7r-kjdWM4L8kWK0nfE6JgHskzqp7DTF8MkUIo7-_o/edit?usp=sharing" target="_blank">Click here</a> for sample data file.</p>
+
+<div class="destroy-section">
+  <h4>It is a test site.</h4>
+  <p><%= link_to 'click here',  persons_path, data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-warning"%> to destroy all existing data. </p>
+</div>
+
+<%= form_tag(persons_path, method: "get", :class => "searchForm") do %>
+  <%= text_field_tag(:searchfor, request.params[:searchfor], :placeholder => "Search here") %>
+  <%= submit_tag("Search", :class => "btn btn-primary") %>
+  <%= link_to 'Clear results', persons_path, class: "btn btn-primary my-3" %>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th scope="col">
+        <%= link_to raw("First Name <i class='fas fa-sort'></i>"), 
+            persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "fn", :oad => @orderingObj[:fn])) 
+        %>
+      </th>
+      <th scope="col">
+        <%= link_to raw("Last Name <i class='fas fa-sort'></i>"), 
+            persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "ln", :oad => @orderingObj[:ln])) 
+        %>
+      </th>
+      <th scope="col">
+        <%= link_to raw("Species <i class='fas fa-sort'></i>"), 
+            persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "sp", :oad => @orderingObj[:sp])) 
+        %>
+      </th>
+      <th scope="col">
+        <%= link_to raw("Gender <i class='fas fa-sort'></i>"), 
+            persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "gd", :oad => @orderingObj[:gd])) 
+        %>
+      </th>
+      <th scope="col">
+        <%= link_to raw("Weapon <i class='fas fa-sort'></i>"), 
+            persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "wp", :oad => @orderingObj[:wp])) 
+        %>
+      </th>
+      <th scope="col">
+        <%= link_to raw("Vehicle <i class='fas fa-sort'></i>"), 
+            persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "vh", :oad => @orderingObj[:vh])) 
+        %>
+      </th>
+      <th scope="col">
+        <%= link_to raw("Affiliations <i class='fas fa-sort'></i>"), 
+            persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "afl", :oad => @orderingObj[:afl])) 
+        %>
+      </th>
+      <th scope="col">
+        <%= link_to raw("Locations <i class='fas fa-sort'></i>"), 
+            persons_path(request.params.except(:action, :controller, :commit, :page).merge(:ob => "loc", :oad => @orderingObj[:loc])) 
+        %>
+      </th>
+    </tr>
+  
+    <% @persons.each_with_index do |person, index| %>
+      <tr>
+        <td><%= person.firstname %></td>
+        <td><%= person.lastname %></td>
+        <td><%= person.species %></td>
+        <td><%= person.gender %></td>
+        <td><%= person.weapon %></td>
+        <td><%= person.vehicle %></td>
+        <td><% person.affiliations.each do |item| %>
+            <p><%= item.title %></p>
+          <% end %>
+        </td>
+        <td>
+          <% person.locations.each do |item| %>
+            <p><%= item.name %></p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<p><%= will_paginate @posts %></p>

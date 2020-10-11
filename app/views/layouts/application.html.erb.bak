@@ -14,6 +14,17 @@
   </head>
 
   <body>
+    <header>
+      <a href="/persons">
+        <%= image_tag "logo.svg", class: "logo", alt: 'Logo' %>
+      </a>
+
+      <nav>
+        <%= link_to 'Upload', new_person_path, class: "nav-link" %>
+        <%= link_to 'Sample','https://docs.google.com/spreadsheets/d/10c7r-kjdWM4L8kWK0nfE6JgHskzqp7DTF8MkUIo7-_o/edit?usp=sharing', class: "nav-link", target: "_blank" %>
+        <%= link_to 'Destroy',  persons_path, data: { confirm: 'Are you sure? (Enable clean start for testing)' }, method: :delete, class: "nav-link"%>
+      </nav>
+    </header>
     <main>
       <%= yield %>
       <div id="app">
