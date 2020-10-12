@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'persons/index'
       post 'persons/create'
-      delete 'persons', to: 'persons#destroyAll'
+      delete 'persons', to: 'persons#destroy_all'
     end
   end
 

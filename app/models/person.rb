@@ -8,12 +8,12 @@ class Person < ApplicationRecord
     validates :species, presence: true
     validates :gender, presence: true
 
-    def self.getPeople(searchParam = "", orderby = "", page = 1)
+    def self.getPeople(search_param = "", order_by = "", page = 1)
 
         # Where condition in SQL for search option
-        if !(searchParam.blank?)
+        unless search_param.blank?
 
-            @searchQuery = "people.firstname LIKE :search"\
+            @search_query = "people.firstname LIKE :search"\
                 " OR people.lastname LIKE :search"\
                 " OR people.species LIKE :search"\
                 " OR people.gender LIKE :search"\
@@ -22,16 +22,16 @@ class Person < ApplicationRecord
                 " OR locations.name LIKE :search"\
                 " OR affiliations.title LIKE :search"
         else
-            @searchQuery = ""
+            @search_query = ''
         end
 
         # Get data from table matching all conditions
-        @persons = Person
+        @persons =  Person
                     .left_outer_joins(:locations, :affiliations)
                     .select('people.*, group_concat(locations.name) as locations, group_concat(affiliations.title) as affiliations')
-                    .where(@searchQuery, search: searchParam)
+                    .where(@search_query, search: search_param)
                     .group('people.id')
-                    .order(orderby)
-                    .paginate(page: page, per_page: 10) 
+                    .order(order_by)
+                    .paginate(page: page, per_page: 10)
     end
 end

@@ -2,28 +2,28 @@ class Api::V1::PersonsController < ApplicationController
     def index
 
         # Checks if ordering requested
-        if !(params[:orderby].blank?)
+        unless params[:orderby].blank?
 
             # checks order is ascending or descending
             # order blank means ascending else descending
-            if (params[:order].blank?)
-                @orderby = params[:orderby]
+            if params[:order].blank?
+                @order_by = params[:orderby]
             else
-                @orderby = "#{params[:orderby]} desc"
+                @order_by = "#{params[:orderby]} desc"
             end
         
         end
 
-        if !(params[:searchfor].blank?)
-            @searchParam = "%#{params[:searchfor]}%"
+        unless params[:searchfor].blank?
+            @search_param = "%#{params[:searchfor]}%"
         else
-            @searchParam = ""
+            @search_param = ""
         end
 
         @page = params[:page]
         
         # requesting person class for SQL
-        @persons = Person.getPeople(@searchParam, @orderby, @page)
+        @persons = Person.getPeople(@search_param, @order_by, @page)
         render json: {
             persons: @persons,
             page: @persons.current_page,
@@ -33,18 +33,18 @@ class Api::V1::PersonsController < ApplicationController
 
     def create
         begin
-            processFile(params[:file])
+            process_file(params[:file])
             render json: {
                 success: 'File processed successfully'
             }
-        rescue => error
+        rescue => e
             render json: {
-                error: error
+                error: e
             }
         end
     end
 
-    def processFile(file)
+    def process_file(file)
 
         CSV.foreach(file, headers: true) do |row|
             # row[4] = Affiliation, row[0] = Name. Both required
@@ -52,12 +52,12 @@ class Api::V1::PersonsController < ApplicationController
             if (!(row[4].blank?) & !(row[0].blank?))
 
                 # Capitalise each part of name
-                nameArr = row[0].split(" ").map(&:capitalize);
+                name_arr = row[0].split(' ').map(&:capitalize)
 
                 # Create person object using Person model
                 @person = Person.new({
-                    firstname: nameArr.slice!(0),
-                    lastname: nameArr.join(' '),
+                    firstname: name_arr.slice!(0),
+                    lastname: name_arr.join(' '),
                     species: row[2],
                     gender: row[3],
                     weapon: row[5],
@@ -68,22 +68,22 @@ class Api::V1::PersonsController < ApplicationController
                 if @person.save
 
                     # row[1] = Location
-                    if !(row[1].blank?)
+                    unless row[1].blank?
 
-                        locationArr = row[1].split(",").map { |item| item.strip.split(" ").map(&:capitalize).join(" ") }
+                        location_arr = row[1].split(',').map { |item| item.strip.split(' ').map(&:capitalize).join(' ') }
 
                         # Save each location in Location table linking person id
-                        locationArr.each do |location|
+                        location_arr.each do |location|
                             @location = Location.new({ name: location, person_id: @person.id})
                             @location.save
                         end
                     end
                     
                     # Convert affiliations to Capitalized affiliations array
-                    affiliationsArr = row[4].split(",").map { |item| item.strip.capitalize() }
+                    affiliations_arr = row[4].split(',').map { |item| item.strip.capitalize() }
 
                     # Save each affiliation in Affiliation table linking person id
-                    affiliationsArr.each do |affiliation|
+                    affiliations_arr.each do |affiliation|
                         @affiliation = Affiliation.new({ title: affiliation, person_id: @person.id})
                         @affiliation.save
                     end
@@ -94,7 +94,7 @@ class Api::V1::PersonsController < ApplicationController
 
     # As a test site added this function to empty data tables
     # So that a fresh start is possible for testing
-    def destroyAll
+    def destroy_all
         begin
             Location.destroy_all
             Affiliation.destroy_all
@@ -103,9 +103,9 @@ class Api::V1::PersonsController < ApplicationController
             render json: {
                 success: 'Deleted all data successfully'
             }
-        rescue => error
+        rescue => e
             render json: {
-                error: error
+                error: e
             }
         end
     end
