@@ -66,8 +66,6 @@ class Persons extends React.Component {
             url += `&orderby=${ordering.orderBy}&order=${ordering.order}`
         }
 
-        console.log(url)
-
         return url
     }
 

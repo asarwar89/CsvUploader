@@ -15,7 +15,6 @@ class Header extends React.Component {
             headers: {'X-CSRF-Token': csrfToken }
         })
         .then(() => {
-            console.log('Hello')
             window.location.href = "/";
         });
     }
