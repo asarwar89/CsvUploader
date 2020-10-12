@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 
 import UserInput from './UserInput';
+import TableHead from './person/TableHead';
+import TableRow from './person/TableRow';
 
 class Persons extends React.Component {
 
@@ -24,14 +25,6 @@ class Persons extends React.Component {
     componentDidMount() {
         this.fetchData();
     }
-
-    handlePageClick(data) {
-
-        this.setState({ currentPage: data.selected + 1 }, () => {
-            this.fetchData();
-        });
-        
-    };
 
     fetchData() {
 
@@ -69,7 +62,15 @@ class Persons extends React.Component {
         return url
     }
 
-    handleOrdering(orderBy) {
+    handlePageClick(data) {
+
+        this.setState({ currentPage: data.selected + 1 }, () => {
+            this.fetchData();
+        });
+        
+    };
+
+    handleOrdering = (orderBy) => {
 
         let ordering = this.state.ordering;
 
@@ -128,19 +129,6 @@ class Persons extends React.Component {
 
         const { persons, currentPage, pageCount } = this.state;
 
-        const allPersons = persons.map((person, index) => (
-            <tr key={index}>
-                <td>{person.firstname}</td>
-                <td>{person.lastname}</td>
-                <td>{person.species}</td>
-                <td>{person.gender}</td>
-                <td>{person.weapon}</td>
-                <td>{person.vehicle}</td>
-                <td>{person.locations.map(location => <p key={person.id + location.id}>{ location.name }</p>)}</td>
-                <td>{person.affiliations.map(affiliation => <p key={person.id + affiliation.id}>{ affiliation.title }</p>)}</td>
-            </tr>
-        ));
-
         const noItem = (
             <div>
                 <h2 className="noperson">No person available</h2>
@@ -160,39 +148,16 @@ class Persons extends React.Component {
                     resetFilters={this.resetAll}
                 />
 
-                { allPersons.length > 0 ?
+                { persons.length > 0 ?
                     <div className="table-responsive">
                         <table className="table">
                             <tbody>
 
-                            <tr>
-                                <th onClick={ () => this.handleOrdering("firstname") }>
-                                    First Name <i className='fas fa-sort'></i>
-                                </th>
-                                <th onClick={ () => this.handleOrdering("lastname") }>
-                                    Last Name <i className='fas fa-sort'></i>
-                                </th>
-                                <th onClick={ () => this.handleOrdering("species") }>
-                                    Species <i className='fas fa-sort'></i>
-                                </th>
-                                <th onClick={ () => this.handleOrdering("gender") }>
-                                    Gender <i className='fas fa-sort'></i>
-                                </th>
-                                <th onClick={ () => this.handleOrdering("weapon") }>
-                                    Weapon <i className='fas fa-sort'></i>
-                                </th>
-                                <th onClick={ () => this.handleOrdering("vehicle") }>
-                                    Vehicle <i className='fas fa-sort'></i>
-                                </th>
-                                <th onClick={ () => this.handleOrdering("affiliations.title") }>
-                                    Affiliations <i className='fas fa-sort'></i>
-                                </th>
-                                <th onClick={ () => this.handleOrdering("locations.name") }>
-                                    Locations <i className='fas fa-sort'></i>
-                                </th>
-                            </tr>
+                                <TableHead handleOrder={this.handleOrdering}/>
 
-                                { allPersons }
+                                { persons.map((person, index) => (
+                                    <TableRow person={person} index={index} />
+                                )) }
 
                             </tbody>
                         </table>
