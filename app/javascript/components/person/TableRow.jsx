@@ -2,7 +2,7 @@ import React from 'react';
 
 const TableRow = (props) => {
     return (
-        <tr key={props.index}>
+        <tr>
             <td>{props.person.firstname}</td>
             <td>{props.person.lastname}</td>
             <td>{props.person.species}</td>

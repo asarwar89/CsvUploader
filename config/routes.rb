@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'upload', to: 'persons#index'
+
   root 'persons#index'
 
 end

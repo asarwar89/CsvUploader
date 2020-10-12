@@ -18,7 +18,7 @@ class Persons extends React.Component {
                 orderBy: "",
                 order: ""
             },
-
+            isLoading: true
         };
     }
 
@@ -32,12 +32,14 @@ class Persons extends React.Component {
 
         fetch(url)
         .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Network response was not ok.");
+            this.setState({ isLoading: true })
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
         })
         .then(response => {
+            this.setState({ isLoading: false })
             this.setState({ 
                 persons: response.persons,
                 currentPage: response.page,
@@ -63,7 +65,8 @@ class Persons extends React.Component {
     }
 
     handlePageClick(data) {
-
+        // ReactPaginate counts page position from 0
+        // So require +1 to get correct page
         this.setState({ currentPage: data.selected + 1 }, () => {
             this.fetchData();
         });
@@ -74,6 +77,7 @@ class Persons extends React.Component {
 
         let ordering = this.state.ordering;
 
+        // order empty string means ascending order
         if (ordering.orderBy === orderBy) {
             if (ordering.order) {
                 ordering.order = "";
@@ -85,6 +89,7 @@ class Persons extends React.Component {
             ordering.order = "";
         }
 
+        // Ordering reset current page to 1
         this.setState({
             currentPage: 1,
             ordering: ordering
@@ -156,7 +161,7 @@ class Persons extends React.Component {
                                 <TableHead handleOrder={this.handleOrdering}/>
 
                                 { persons.map((person, index) => (
-                                    <TableRow person={person} index={index} />
+                                    <TableRow person={person} key={index} />
                                 )) }
 
                             </tbody>
@@ -177,7 +182,7 @@ class Persons extends React.Component {
                             activeClassName={"active"}/>
                         </div>
 
-                : noItem }
+                : !this.state.isLoading ? noItem: undefined }
                 
             </div>
         );

@@ -34,6 +34,8 @@ class Persons extends React.Component {
             .then(() => {
                 this.props.history.push('/');
             });
+        } else {
+            alert("Please select a file before upload!")
         }
     }
     
